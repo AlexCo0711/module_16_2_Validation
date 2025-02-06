@@ -8,30 +8,30 @@ from typing import Annotated
 app = FastAPI()
 
 
-# Создан декоратор маршрута к главной странице
+# Создан декоратор маршрута к главной странице на выходе строка
 @app.get("/")
-async def get_p_main() -> dict:
+async def get_p_main() -> str:
     return f'Главная страница'
 
 
-# Создан декоратор маршрута к странице администратора
+# Создан декоратор маршрута к странице администратора на выходе строка
 @app.get("/user/admin")
-async def get_p_admin() -> dict:
+async def get_p_admin() -> str:
     return f'Вы вошли как администратор'
 
 
-# Создан декоратор маршрута к странице пользователя c валидациeй аргумента user_id
+# Создан декоратор маршрута к странице пользователя c валидациeй аргумента user_id на выходе строка
 @app.get("/user/{user_id}")
 async def get_p_user_id(
         user_id:Annotated[int, Path(ge=1,
                                     le=100,
                                     description= 'Введите свой ID',
                                     example='17')]
-) -> dict:
+) -> str:
     return f'Вы вошли как пользователь №{user_id}'
     
 
-# Создан декоратор маршрута к страницам пользователей c валидациeй аргументов username и age
+# Создан декоратор маршрута к страницам пользователей c валидациeй аргументов username и age на выходе строка
 @app.get("/user/{username}/{age}")
 async def get_p_data_user(
         username:Annotated[str, Path(min_length=5,
@@ -42,5 +42,5 @@ async def get_p_data_user(
                                 le=120,
                                 description='Введите свой возраст',
                                 example='21')]
-) -> dict:
+) -> str:
     return f'Информация о пользователе. Имя: {username}, Возраст: {age}'
